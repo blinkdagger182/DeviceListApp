@@ -19,23 +19,6 @@ class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // void loginUser() async {
-  //   await FirebaseAuthMethods()
-  //       .loginWithEmail(
-  //           email: emailController.text,
-  //           password: passwordController.text,
-  //           context: context)
-  //       .then((value) {
-  //         if(value === 'Success'){
-  //     showSnackBar(context, 'Successfully');
-  //     print(context);
-  //     Navigator.pushReplacementNamed(
-  //         context,
-  //         BottomNavBar
-  //             .routeName);
-  //         }// Use pushReplacementNamed to prevent going back to login screen
-  //   });
-  // }
   void loginUser() async {
     String loginResult = await FirebaseAuthMethods().loginWithEmail(
       email: emailController.text,
