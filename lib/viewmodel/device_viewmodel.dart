@@ -13,6 +13,48 @@ class DeviceViewModel extends ChangeNotifier {
   }
 
   final DatabaseReference _dbRef = FirebaseDatabase.instance.ref().child('');
+  // Future<void> fetchDevices() async {
+  //   try {
+  //     devicesList.clear(); // Clear the list before adding new devices
+
+  //     _dbRef.child("devices").onChildAdded.listen((event) {
+  //       final dynamic data = event.snapshot.value;
+  //       final Device device = Device(
+  //         key: event.snapshot.key,
+  //         deviceData: DeviceData.fromJson(data),
+  //       );
+  //       devicesList.add(device);
+  //       notifyListeners();
+  //     });
+
+  //     print(devicesList);
+  //   } catch (e) {
+  //     print('Error fetching devices: $e');
+  //   }
+  // }
+  // Future<void> fetchDevices(int limit) async {
+  //   try {
+  //     // Clear the list before adding new devices
+  //     devicesList.clear();
+
+  //     // Fetch devices with a limit
+  //     final dataSnapshot =
+  //         await _dbRef.child("devices").limitToFirst(limit).once();
+
+  //     // Listen for child added events to update the list
+  //     _dbRef.child("devices").limitToFirst(limit).onChildAdded.listen((event) {
+  //       final dynamic data = event.snapshot.value;
+  //       final Device device = Device(
+  //         key: event.snapshot.key,
+  //         deviceData: DeviceData.fromJson(data),
+  //       );
+  //       devicesList.add(device);
+  //       notifyListeners();
+  //     });
+  //   } catch (e) {
+  //     print('Error fetching devices: $e');
+  //   }
+  // } //GET FIRST TEN
 
   Future<void> fetchDevices({int limit = 10, int offset = 0}) async {
     try {
