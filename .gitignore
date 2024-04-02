@@ -1,5 +1,11 @@
+/.dart_tool
+.flutter-plugins
+.flutter-plugins-dependencies
 /android
 /ios
 /web
 /build
 /pubspec.lock
+/.vscode
+settings.json
+.DS_STORE

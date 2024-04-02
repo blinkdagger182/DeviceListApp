@@ -160,17 +160,17 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
-                    height: 200,
-                    child: device!.deviceData!.url.isNotEmpty
-                        ? Image.network(
-                            device.deviceData!.url,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.asset(
-                            'assets/images/image_error.jpeg', // Default image path
-                            fit: BoxFit.cover,
-                          )),
+                // SizedBox(
+                //     height: 200,
+                //     child: device!.deviceData!.url.isNotEmpty
+                //         ? Image.network(
+                //             device.deviceData!.url,
+                //             fit: BoxFit.cover,
+                //           )
+                //         : Image.asset(
+                //             'assets/images/image_error.jpeg', // Default image path
+                //             fit: BoxFit.cover,
+                //           )),
                 TextField(
                   style: TextStyle(
                       fontSize: 12, color: Colors.black, fontFamily: 'Poppins'),
