@@ -1,4 +1,4 @@
-# FlutterDevice App
+# DeviceList App
 
 This mobile application is a phone listing app developed using Flutter, Firebase Realtime Database, Firebase Authentication, and MVVM architecture with Provider state management. The app enables users to perform CRUD (Create, Read, Update, Delete) operations on mobile phone listings stored in Firebase Realtime Database.
 
