@@ -36,17 +36,25 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Devices'),
+        title: Text(
+          'Welcome!',
+          style: TextStyle(fontFamily: 'Poppins', fontSize: 18),
+        ),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () {
+            child: ElevatedButton(
+              onPressed: () {
                 deviceDialog(context);
               },
-              child: Icon(
-                Icons.add,
-                size: 26.0,
+              child: Row(
+                children: [
+                  Text('Add Devices', style: TextStyle(fontFamily: 'Poppins')),
+                  Icon(
+                    Icons.add,
+                    size: 26.0,
+                  ),
+                ],
               ),
             ),
           )
@@ -55,7 +63,8 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
       body: Consumer<DeviceViewModel>(
         builder: (context, viewModel, _) {
           return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisExtent: 300,
               crossAxisCount: 2, // Number of columns in the grid
               crossAxisSpacing: 8.0, // Spacing between columns
               mainAxisSpacing: 8.0, // Spacing between rows
@@ -65,24 +74,32 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
             itemBuilder: (context, index) {
               final device = viewModel.devicesList[index];
               return Card(
+                elevation: 1,
+                color: Colors.white,
                 child: GestureDetector(
                   onTap: () {
                     _showDeviceDetailsModal(context, device);
                   },
                   child: GridTile(
                     footer: Container(
-                      color: Colors.black,
+                      color: Colors.white,
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             device.deviceData!.deviceName,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black,
+                                fontFamily: 'Poppins'),
                           ),
                           Text(
                             device.deviceData!.variant,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black,
+                                fontFamily: 'Poppins'),
                           ),
                         ],
                       ),
@@ -90,7 +107,7 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                     child: Stack(
                       fit: StackFit.passthrough,
                       children: <Widget>[
-                        Center(
+                        const Center(
                           child: CircularProgressIndicator(
                             valueColor:
                                 AlwaysStoppedAnimation<Color>(Colors.lightBlue),
@@ -99,7 +116,8 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                         if (device.deviceData!.url.isNotEmpty)
                           Center(
                             child: FadeInImage.memoryNetwork(
-                              // fit: BoxFit.contain, // Uncomment this line if needed
+                              fit: BoxFit
+                                  .contain, // Uncomment this line if needed
                               placeholder: kTransparentImage,
                               image: device.deviceData!.url,
                             ),
@@ -142,15 +160,34 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                SizedBox(
+                    height: 200,
+                    child: device!.deviceData!.url.isNotEmpty
+                        ? Image.network(
+                            device.deviceData!.url,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            'assets/images/image_error.jpeg', // Default image path
+                            fit: BoxFit.cover,
+                          )),
                 TextField(
+                  style: TextStyle(
+                      fontSize: 12, color: Colors.black, fontFamily: 'Poppins'),
                   controller: _deviceNameController,
-                  decoration: InputDecoration(helperText: "Device Name"),
+                  decoration: InputDecoration(
+                    helperText: "Device Name",
+                  ),
                 ),
                 TextField(
+                  style: TextStyle(
+                      fontSize: 12, color: Colors.black, fontFamily: 'Poppins'),
                   controller: _variantNameController,
                   decoration: InputDecoration(helperText: "Variant"),
                 ),
                 TextField(
+                  style: TextStyle(
+                      fontSize: 12, color: Colors.black, fontFamily: 'Poppins'),
                   controller: _imeiSerialController,
                   decoration: InputDecoration(helperText: "IMEI Serial"),
                 ),
@@ -190,9 +227,18 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
     final viewModel = Provider.of<DeviceViewModel>(context, listen: false);
 
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {
         return Container(
+          height: MediaQuery.of(context).size.height * 0.75,
+          decoration: new BoxDecoration(
+            color: Colors.white,
+            borderRadius: new BorderRadius.only(
+              topLeft: const Radius.circular(25.0),
+              topRight: const Radius.circular(25.0),
+            ),
+          ),
           padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -209,20 +255,23 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                           fit: BoxFit.cover,
                         )),
               SizedBox(height: 16.0),
-              Text(
-                'Device Name: ${device.deviceData!.deviceName}',
-                style: TextStyle(fontSize: 18.0),
-              ),
+              Text('Device Name: ${device.deviceData!.deviceName}',
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                      fontFamily: 'Poppins')),
               SizedBox(height: 8.0),
-              Text(
-                'Variant: ${device.deviceData!.variant}',
-                style: TextStyle(fontSize: 18.0),
-              ),
+              Text('Variant: ${device.deviceData!.variant}',
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                      fontFamily: 'Poppins')),
               SizedBox(height: 8.0),
-              Text(
-                'IMEI Serial: ${device.deviceData!.imeiSerial}',
-                style: TextStyle(fontSize: 18.0),
-              ),
+              Text('IMEI Serial: ${device.deviceData!.imeiSerial}',
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                      fontFamily: 'Poppins')),
               SizedBox(height: 16.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
