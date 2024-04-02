@@ -1,55 +1,51 @@
-import 'package:authentication/main.dart';
 import 'package:authentication/screens/home_screen.dart';
 import 'package:authentication/services/firebase_auth_methods.dart';
-import 'package:authentication/utils/showSnackbar.dart';
-import 'package:authentication/widgets/custom_button.dart';
 import 'package:authentication/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EmailPasswordLogin extends StatefulWidget {
-  static String routeName = '/login-email-password';
-  const EmailPasswordLogin({Key? key}) : super(key: key);
+class EmailPasswordSignup extends StatefulWidget {
+  static String routeName = '/signup-email-password';
+  const EmailPasswordSignup({Key? key}) : super(key: key);
 
   @override
-  _EmailPasswordLoginState createState() => _EmailPasswordLoginState();
+  _EmailPasswordSignupState createState() => _EmailPasswordSignupState();
 }
 
-class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
+class _EmailPasswordSignupState extends State<EmailPasswordSignup> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
-  // void loginUser() async {
-  //   await FirebaseAuthMethods()
-  //       .loginWithEmail(
-  //           email: emailController.text,
-  //           password: passwordController.text,
-  //           context: context)
-  //       .then((value) {
-  //         if(value === 'Success'){
-  //     showSnackBar(context, 'Successfully');
-  //     print(context);
-  //     Navigator.pushReplacementNamed(
-  //         context,
-  //         BottomNavBar
-  //             .routeName);
-  //         }// Use pushReplacementNamed to prevent going back to login screen
-  //   });
-  // }
-  void loginUser() async {
-    String loginResult = await FirebaseAuthMethods().loginWithEmail(
-      email: emailController.text,
-      password: passwordController.text,
-      context: context,
+  void _signUpUser() async {
+    context.read<FirebaseAuthMethods>().signUpWithEmail(
+          context: context,
+          email: emailController.text,
+          password: passwordController.text,
+        );
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return const HomeScreen();
+      }),
     );
 
-    if (loginResult == 'Success') {
-      print('loginResult ${loginResult}');
-      showSnackBar(context, 'Successfully');
-      Navigator.pushReplacementNamed(context, BottomNavBar.routeName);
-    } else {
-      showSnackBar(context, 'Login failed');
-    }
+    // FirebaseAuthMethods()
+    //     .signUpWithEmail(
+    //         email: emailController.text,
+    //         password: passwordController.text,
+    //         context: context)
+    //     .then((value) {
+    //   showSnackBar(context, 'Successfully');
+    //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //     return const HomeScreen();
+    //   }));
+    // });
   }
 
   @override
@@ -59,7 +55,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            "Login",
+            "Sign Up",
             style: TextStyle(fontSize: 30),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.08),
@@ -80,7 +76,7 @@ class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
           ),
           const SizedBox(height: 40),
           ElevatedButton(
-            onPressed: loginUser,
+            onPressed: _signUpUser,
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.blue),
               textStyle: MaterialStateProperty.all(
@@ -91,16 +87,9 @@ class _EmailPasswordLoginState extends State<EmailPasswordLogin> {
               ),
             ),
             child: const Text(
-              "Login",
+              "Sign Up",
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
-          ),
-          const SizedBox(height: 16),
-          CustomButton(
-            onTap: () {
-              context.read<FirebaseAuthMethods>().signInWithGoogle(context);
-            },
-            text: 'Google Sign In',
           ),
         ],
       ),
