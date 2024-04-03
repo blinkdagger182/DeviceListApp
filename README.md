@@ -56,3 +56,10 @@ This project is licensed under the [MIT License](LICENSE).
 ## Acknowledgments
 
 Special thanks to the Flutter and Firebase communities for their amazing resources and support.
+
+## Test Account
+
+Please login using these set of credentials
+
+Email: azhanrizhan@gmail.com  
+Pw: pass1234
