@@ -61,5 +61,5 @@ Special thanks to the Flutter and Firebase communities for their amazing resourc
 
 Please login using these set of credentials
 
-Email: azhanrizhan@gmail.com  
+Email: test@user.com
 Pw: pass1234
